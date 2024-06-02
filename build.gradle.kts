@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.support.uppercaseFirstChar
+
 plugins {
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.kotlinSerialization)
@@ -38,7 +40,13 @@ tasks {
 
     kotlin {
         // https://docs.gradle.org/8.4/release-notes.html#:~:text=Currently%2C%20you-,cannot,-run%20Gradle%20on
-        jvmToolchain(20)
+        jvmToolchain(17)
+    }
+
+    jar {
+        manifest {
+            attributes["Main-Class"] = "$group.$name.${name.uppercaseFirstChar()}Kt"
+        }
     }
 }
 
