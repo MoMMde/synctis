@@ -30,6 +30,18 @@ dependencies {
     implementation(libs.slf4jSimple)
 }
 
+tasks {
+    register("runWithEnv", RunWithEnvironmentConfig::class) {
+        dependsOn("installDist")
+        environmentFile.set(File(".env"))
+    }
+
+    kotlin {
+        // https://docs.gradle.org/8.4/release-notes.html#:~:text=Currently%2C%20you-,cannot,-run%20Gradle%20on
+        jvmToolchain(20)
+    }
+}
+
 // https://ktor.io/docs/server-packaging.html#run
 
 val githubShaKey = "GIT_SHA"
