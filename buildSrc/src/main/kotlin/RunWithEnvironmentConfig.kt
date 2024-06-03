@@ -26,7 +26,6 @@ abstract class RunWithEnvironmentConfig : DefaultTask() {
 
     @TaskAction
     fun executeBinary() {
-
         processBuilder.copyEnvironment()
 
         println("Running with command: ${processBuilder.command}")
