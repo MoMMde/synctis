@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.buildConfig)
 }
 
-group = "template.group"
+group = "dev.test--no-destroy"
 version = "1.0"
 
 dependencies {

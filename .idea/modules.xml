@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc/ktor-server-template.buildSrc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc/ktor-server-template.buildSrc.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ktor-server-template.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ktor-server-template.main.iml" />
     </modules>
   </component>
 </project>
