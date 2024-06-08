@@ -2,24 +2,24 @@ import io.matthewnelson.kmp.process.Process
 import org.gradle.api.DefaultTask
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.Sync
 import org.gradle.api.tasks.TaskAction
+import org.gradle.kotlin.dsl.task
 import java.io.File
 import java.util.regex.Pattern
+import kotlin.reflect.full.functions
 
 abstract class RunWithEnvironmentConfig : DefaultTask() {
     @get:InputFile
     abstract val environmentFile: Property<File>
 
     private val processBuilder = Process.Builder(
-        command = project
-            .layout
-            .buildDirectory
-            .get()
-            .dir("install")
-            .dir("worcester")
-            .dir("bin")
-            .file("worcester")
-            .asFile
+        // https://github.com/gradle/gradle/blob/master/subprojects/core/src/main/java/org/gradle/api/tasks/Sync.java#L103C17-L103C34
+        // will return the output dir of the installDist gradle task that is beeing implemented by the ktor plugin
+        command = (project.getTasksByName("installDist", false).first() as Sync)
+            .destinationDir
+            .resolve("bin")
+            .resolve(project.name)
             .absolutePath
     )
 
@@ -28,15 +28,15 @@ abstract class RunWithEnvironmentConfig : DefaultTask() {
     fun executeBinary() {
         processBuilder.copyEnvironment()
 
-        println("Running with command: ${processBuilder.command}")
+        println("executing file: ${processBuilder.command}")
 
         processBuilder.output {
-            maxBuffer = 1024
+            maxBuffer = 1024 // 1 KiB
             timeoutMillis = 500
         }.let { output ->
-            println("-- installDist Execute Task (STDOUT) --")
+            println("-- installDist Task (STDOUT) --")
             println(output.stdout)
-            println("-- installDist Execute Task (STDERR) --")
+            println("-- installDist Task (STDERR) --")
             println(output.stderr)
         }
     }
