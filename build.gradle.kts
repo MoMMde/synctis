@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.buildConfig)
 }
 
-group = "dev.test--no-destroy"
+group = "template.group"
 version = "1.0"
 
 dependencies {
@@ -52,16 +52,12 @@ tasks {
 
 // https://ktor.io/docs/server-packaging.html#run
 
-val githubShaKey = "GIT_SHA"
-val githubBranchKey = "GIT_BRANCH"
 val versionKey = "VERSION"
 
 buildConfig {
-    val githubSha = System.getenv(githubShaKey) ?: null
-    val githubBranch = System.getenv(githubBranchKey) ?: null
-
-    buildConfigField("String?", githubShaKey, githubSha)
-    buildConfigField("String?", githubBranchKey, githubBranch)
+    val git = Git
+    buildConfigField("String?", githubShaKey, git.gitHashFromCommandline)
+    buildConfigField("String?", githubBranchKey, git.gitBranchFromCommandline)
 
     buildConfigField(String::class.java, versionKey, version.toString())
 }
