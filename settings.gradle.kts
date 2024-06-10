@@ -1,4 +1,4 @@
-rootProject.name = "test"
+rootProject.name = "ktor-server-template"
 
 pluginManagement {
     repositories {
