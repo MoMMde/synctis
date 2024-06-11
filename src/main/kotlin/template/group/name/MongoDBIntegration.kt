@@ -1,5 +1,5 @@
 package template.group.name
 
-fun connectToMongoDB() {
+import com.mongodb.kotlin.client.coroutine.MongoClient
 
-}
+fun connectToMongoDB() = MongoClient.create(Config.MONGO_URL)
