@@ -1,5 +1,4 @@
 import org.eclipse.jgit.api.Git
-import org.eclipse.jgit.lib.Repository
 import org.gradle.kotlin.dsl.support.uppercaseFirstChar
 
 plugins {
@@ -8,7 +7,6 @@ plugins {
     alias(libs.plugins.ktor)
 
     alias(libs.plugins.buildConfig)
-    alias(libs.plugins.reckon)
 }
 
 group = "template.group"

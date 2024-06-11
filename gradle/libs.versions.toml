@@ -41,4 +41,3 @@ kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 buildConfig = { id = "com.github.gmazzo.buildconfig", version = "5.3.5" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
-reckon = { id = "org.ajoberstar.reckon", version = "0.18.3" }
