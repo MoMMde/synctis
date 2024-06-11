@@ -1,5 +1,5 @@
 package template.group.name
 
-fun main() {
+fun connectToMongoDB() {
 
 }

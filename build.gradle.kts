@@ -1,3 +1,5 @@
+import org.eclipse.jgit.api.Git
+import org.eclipse.jgit.lib.Repository
 import org.gradle.kotlin.dsl.support.uppercaseFirstChar
 
 plugins {
@@ -6,6 +8,7 @@ plugins {
     alias(libs.plugins.ktor)
 
     alias(libs.plugins.buildConfig)
+    alias(libs.plugins.reckon)
 }
 
 group = "template.group"
@@ -26,7 +29,7 @@ dependencies {
     implementation(libs.stdx.logging)
     implementation(libs.stdx.coroutines)
 
-    implementation(libs.kmongo)
+    implementation(libs.mongodb)
 
     implementation(libs.klogger)
     implementation(libs.slf4jSimple)
@@ -53,11 +56,14 @@ tasks {
 // https://ktor.io/docs/server-packaging.html#run
 
 val versionKey = "VERSION"
+val gitShaKey = "GIT_SHA"
+val gitBranchKey = "GIT_BRANCH"
 
 buildConfig {
-    val git = Git
-    buildConfigField("String?", githubShaKey, git.gitHashFromCommandline)
-    buildConfigField("String?", githubBranchKey, git.gitBranchFromCommandline)
+    val git = Git.open(project.rootDir.resolve(".git"))
+    val head = git.repository.findRef("HEAD")
+    buildConfigField("String?", gitShaKey, "\"${head.objectId.name}\"")
+    buildConfigField("String?", gitBranchKey, "\"${git.repository.branch}\"")
 
     buildConfigField(String::class.java, versionKey, version.toString())
 }
