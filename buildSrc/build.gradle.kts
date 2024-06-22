@@ -24,9 +24,3 @@ dependencies {
 kotlin {
     jvmToolchain(17)
 }
-
-tasks {
-    create("runMongoDB", DockerCreateContainer::class) {
-
-    }
-}
