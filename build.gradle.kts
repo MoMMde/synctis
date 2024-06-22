@@ -1,5 +1,4 @@
 import org.eclipse.jgit.api.Git
-import org.gradle.kotlin.dsl.support.uppercaseFirstChar
 
 plugins {
     alias(libs.plugins.kotlinJvm)
@@ -31,6 +30,8 @@ dependencies {
 
     implementation(libs.klogger)
     implementation(libs.slf4jSimple)
+
+    testImplementation(libs.ktor.server.testHost)
 }
 
 tasks {
@@ -43,12 +44,10 @@ tasks {
         // https://docs.gradle.org/8.4/release-notes.html#:~:text=Currently%2C%20you-,cannot,-run%20Gradle%20on
         jvmToolchain(17)
     }
+}
 
-    jar {
-        manifest {
-            attributes["Main-Class"] = "$group.$name.${name.uppercaseFirstChar()}Kt"
-        }
-    }
+application {
+    mainClass.set("template.group.name.TemplateKt")
 }
 
 // https://ktor.io/docs/server-packaging.html#run
@@ -58,6 +57,8 @@ val gitShaKey = "GIT_SHA"
 val gitBranchKey = "GIT_BRANCH"
 
 buildConfig {
+    packageName("${project.group}.${project.name}.generated")
+
     val git = Git.open(project.rootDir.resolve(".git"))
     val head = git.repository.findRef("HEAD")
     buildConfigField("String?", gitShaKey, "\"${head.objectId.name}\"")

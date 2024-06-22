@@ -36,6 +36,8 @@ klogger = { group = "io.github.oshai", name = "kotlin-logging-jvm", version.ref 
 
 slf4jSimple = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf4j"}
 
+ktor-server-testHost = { group = "io.ktor", name = "ktor-server-test-host" }
+
 [plugins]
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

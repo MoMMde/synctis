@@ -4,10 +4,9 @@ import org.gradle.api.provider.Property
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.Sync
 import org.gradle.api.tasks.TaskAction
-import org.gradle.kotlin.dsl.task
+import org.gradle.kotlin.dsl.support.uppercaseFirstChar
 import java.io.File
 import java.util.regex.Pattern
-import kotlin.reflect.full.functions
 
 abstract class RunWithEnvironmentConfig : DefaultTask() {
     @get:InputFile
@@ -31,8 +30,8 @@ abstract class RunWithEnvironmentConfig : DefaultTask() {
         println("executing file: ${processBuilder.command}")
 
         processBuilder.output {
-            maxBuffer = 1024 // 1 KiB
-            timeoutMillis = 500
+            maxBuffer = 1 // 1 KiB
+            timeoutMillis = 2147483647
         }.let { output ->
             println("-- installDist Task (STDOUT) --")
             println(output.stdout)
