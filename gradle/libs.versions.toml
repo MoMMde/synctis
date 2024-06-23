@@ -25,6 +25,8 @@ ktor-server-logging = { group = "io.ktor", name = "ktor-server-call-logging" }
 ktor-contentnegotiation-server = { group = "io.ktor", name = "ktor-server-content-negotiation" }
 ktor-contentnegotiation-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json" }
 
+ktor-client-contentnegotiation = { group = "io.ktor", name = "ktor-client-content-negotiation" }
+
 stdx-bom = { group = "dev.schlaubi", name = "stdx-bom", version.ref = "stdx" }
 stdx-core = { group = "dev.schlaubi", name = "stdx-core" }
 stdx-envconf = { group = "dev.schlaubi", name = "stdx-envconf" }
@@ -37,6 +39,7 @@ klogger = { group = "io.github.oshai", name = "kotlin-logging-jvm", version.ref 
 slf4jSimple = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf4j"}
 
 ktor-server-testHost = { group = "io.ktor", name = "ktor-server-test-host" }
+kotlinTest = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 
 [plugins]
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

@@ -32,6 +32,9 @@ dependencies {
     implementation(libs.slf4jSimple)
 
     testImplementation(libs.ktor.server.testHost)
+    testImplementation(libs.ktor.client.contentnegotiation)
+
+    testImplementation(libs.kotlinTest)
 }
 
 tasks {
@@ -43,6 +46,10 @@ tasks {
     kotlin {
         // https://docs.gradle.org/8.4/release-notes.html#:~:text=Currently%2C%20you-,cannot,-run%20Gradle%20on
         jvmToolchain(17)
+    }
+
+    test {
+        useJUnitPlatform()
     }
 }
 

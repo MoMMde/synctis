@@ -1,6 +1,6 @@
 import io.ktor.server.testing.*
-import org.junit.Test
 import template.group.name.module
+import kotlin.test.Test
 
 class KtorTestFrameworkLoadApplicationTest {
     @Test
