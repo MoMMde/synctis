@@ -39,6 +39,7 @@ dependencies {
 
 tasks {
     register("runWithEnv", RunWithEnvironmentConfig::class) {
+        // https://ktor.io/docs/server-packaging.html#run
         dependsOn("installDist")
         environmentFile.set(File(".env"))
     }
@@ -56,8 +57,6 @@ tasks {
 application {
     mainClass.set("template.group.name.TemplateKt")
 }
-
-// https://ktor.io/docs/server-packaging.html#run
 
 val versionKey = "VERSION"
 val gitShaKey = "GIT_SHA"
