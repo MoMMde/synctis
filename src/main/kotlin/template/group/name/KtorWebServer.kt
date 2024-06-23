@@ -1,7 +1,6 @@
 package template.group.name
 
 import com.mongodb.kotlin.client.coroutine.MongoClient
-import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.cio.*

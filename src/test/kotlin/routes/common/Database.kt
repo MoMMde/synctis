@@ -9,7 +9,7 @@ class Database {
     private val databaseUrl = "mongodb://root:super-secure-password@localhost:27017/?authSource=admin"
     @Test
     fun canConnectToDatabase() {
-        val database = connectToMongoDB(databaseUrl)
+        connectToMongoDB(databaseUrl)
         assertTrue(true, "Connection did not throw an exception")
     }
 }
