@@ -1,46 +1,32 @@
-import io.matthewnelson.kmp.process.Process
-import org.gradle.api.DefaultTask
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.JavaExec
 import org.gradle.api.tasks.Sync
-import org.gradle.api.tasks.TaskAction
-import org.gradle.kotlin.dsl.support.uppercaseFirstChar
 import java.io.File
 import java.util.regex.Pattern
 
-abstract class RunWithEnvironmentConfig : DefaultTask() {
+abstract class RunWithEnvironmentConfig : JavaExec() {
     @get:InputFile
     abstract val environmentFile: Property<File>
 
-    private val processBuilder = Process.Builder(
-        // https://github.com/gradle/gradle/blob/master/subprojects/core/src/main/java/org/gradle/api/tasks/Sync.java#L103C17-L103C34
-        // will return the output dir of the installDist gradle task that is beeing implemented by the ktor plugin
-        command = (project.getTasksByName("installDist", false).first() as Sync)
-            .destinationDir
-            .resolve("bin")
-            .resolve(project.name)
-            .absolutePath
-    )
-
-
-    @TaskAction
-    fun executeBinary() {
-        processBuilder.copyEnvironment()
-
-        println("executing file: ${processBuilder.command}")
-
-        processBuilder.output {
-            maxBuffer = 1 // 1 KiB
-            timeoutMillis = 2147483647
-        }.let { output ->
-            println("-- installDist Task (STDOUT) --")
-            println(output.stdout)
-            println("-- installDist Task (STDERR) --")
-            println(output.stderr)
-        }
+    init {
+        mainClass.set("template.group.name.TemplateKt")
     }
 
-    private fun Process.Builder.copyEnvironment() {
+    override fun exec() {
+        val syncTask = (project.getTasksByName("installDist", false).first() as Sync)
+        val classPath = syncTask
+            .destinationDir
+            .resolve("lib")
+            .listFiles()
+            ?.map { it.toPath() }
+
+        copyEnvironment()
+        classpath(classPath)
+        super.exec()
+    }
+
+    private fun copyEnvironment() {
         val envFile = environmentFile.get()
         if (!envFile.exists()) {
             error("Could not find environment file: ${envFile.absolutePath}")
