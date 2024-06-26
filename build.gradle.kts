@@ -31,6 +31,10 @@ dependencies {
     implementation(libs.klogger)
     implementation(libs.slf4jSimple)
 
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.ktor)
+    implementation(libs.koin.logging)
+
     testImplementation(libs.ktor.server.testHost)
     testImplementation(libs.ktor.client.contentnegotiation)
 
