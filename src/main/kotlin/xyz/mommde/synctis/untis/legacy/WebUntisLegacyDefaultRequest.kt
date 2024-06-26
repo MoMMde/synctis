@@ -1,7 +1,10 @@
 package xyz.mommde.synctis.untis.legacy
 
 import io.ktor.client.plugins.*
+import io.ktor.client.plugins.api.*
+import io.ktor.client.statement.*
 import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.*
 import xyz.mommde.synctis.Config
 
 val defaultLegacyRequest: DefaultRequest.DefaultRequestBuilder.() -> Unit = {

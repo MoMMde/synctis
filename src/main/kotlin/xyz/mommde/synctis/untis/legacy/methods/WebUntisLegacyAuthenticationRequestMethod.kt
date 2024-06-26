@@ -2,7 +2,6 @@ package xyz.mommde.synctis.untis.legacy.methods
 
 import io.ktor.client.request.*
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Serializer
 import xyz.mommde.synctis.untis.legacy.WebUntisLegacyRPCRequestBuilder
 import xyz.mommde.synctis.untis.legacy.objects.WebUnitsLegacyPersonType
 import xyz.mommde.synctis.untis.legacy.objects.WebUnitsLegacyPersonTypeSerializer

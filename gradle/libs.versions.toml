@@ -42,6 +42,7 @@ kotlinTest = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref
 koin-bom = { group = "io.insert-koin", name = "koin-bom", version.ref = "koin" }
 koin-ktor = { group = "io.insert-koin", name = "koin-ktor" }
 koin-logging = { group = "io.insert-koin", name = "koin-logger-slf4j" }
+koin-test = { group = "io.insert-koin", name = "koin-test" }
 
 [plugins]
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

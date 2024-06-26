@@ -18,8 +18,8 @@ data class GeneralLegacyPacketRequest<T>(
 @Serializable
 data class GeneralLegacyPacketResponse<T>(
     val id: String,
-    val error: ErrorPacketResponse?,
-    val result: T?,
+    val error: ErrorPacketResponse? = null,
+    val result: T? = null,
     @SerialName("jsonrpc")
     val jsonRpc: String = "2.0",
 )

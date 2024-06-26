@@ -40,6 +40,7 @@ dependencies {
     testImplementation(libs.ktor.client.contentnegotiation)
 
     testImplementation(libs.kotlinTest)
+    testImplementation(libs.koin.test)
 }
 
 tasks {
@@ -56,6 +57,11 @@ tasks {
 
     test {
         useJUnitPlatform()
+
+        environment("UNTIS_SERVER", "urania.webuntis.com")
+        environment("DEBUG", "true")
+
+        jvmArgs("-Dorg.slf4j.simpleLogger.defaultLogLevel=debug")
     }
 }
 
