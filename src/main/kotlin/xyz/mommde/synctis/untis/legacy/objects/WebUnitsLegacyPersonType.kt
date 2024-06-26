@@ -12,6 +12,13 @@ enum class WebUnitsLegacyPersonType {
     Student
 }
 
+/**
+ * As of official docs:
+ * "type of person 2 = teacher, 5 = student"
+ *
+ *  https://untis-sr.ch/wp-content/uploads/2019/11/2018-09-20-WebUntis_JSON_RPC_API.pdf
+ *  See Section "1) Authentication"
+ */
 private val personTypeToIntMap = mapOf(
     2 to WebUnitsLegacyPersonType.Teacher,
     5 to WebUnitsLegacyPersonType.Student
