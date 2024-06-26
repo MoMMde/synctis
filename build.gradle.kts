@@ -29,6 +29,8 @@ dependencies {
     implementation(libs.stdx.logging)
     implementation(libs.stdx.coroutines)
 
+    implementation(libs.kotlinx.datetime)
+
     implementation(libs.klogger)
     implementation(libs.slf4jSimple)
 
