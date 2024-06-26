@@ -20,6 +20,9 @@ dependencies {
     implementation(libs.ktor.server.cio)
     implementation(libs.ktor.server.logging)
 
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.contentnegotiation)
+
     implementation(platform(libs.stdx.bom))
     implementation(libs.stdx.core)
     implementation(libs.stdx.envconf)

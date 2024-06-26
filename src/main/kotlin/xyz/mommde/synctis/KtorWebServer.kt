@@ -65,6 +65,7 @@ internal fun Application.module() {
 
     install(Koin) {
         slf4jLogger(level = if(Config.DEBUG) KoinLevel.DEBUG else KoinLevel.INFO)
+        modules()
     }
 
     routing {

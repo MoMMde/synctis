@@ -23,6 +23,7 @@ ktor-server-logging = { group = "io.ktor", name = "ktor-server-call-logging" }
 ktor-contentnegotiation-server = { group = "io.ktor", name = "ktor-server-content-negotiation" }
 ktor-contentnegotiation-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json" }
 
+ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio" }
 ktor-client-contentnegotiation = { group = "io.ktor", name = "ktor-client-content-negotiation" }
 
 stdx-bom = { group = "dev.schlaubi", name = "stdx-bom", version.ref = "stdx" }
