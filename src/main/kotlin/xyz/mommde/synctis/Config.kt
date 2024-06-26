@@ -1,4 +1,4 @@
-package template.group.name
+package xyz.mommde.synctis
 
 import dev.schlaubi.envconf.getEnv
 

@@ -1,5 +1,5 @@
 import io.ktor.server.testing.*
-import template.group.name.module
+import xyz.mommde.synctis.module
 import kotlin.test.Test
 
 class KtorTestFrameworkLoadApplicationTest {

@@ -1,17 +1,14 @@
 package routes.misc
 
 import io.ktor.client.call.*
-import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
-import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
-import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.testing.*
 import junit.framework.TestCase.assertEquals
-import template.group.name.module
-import template.group.name.routing.MiscResponse
 import xyz.mommde.synctis.generated.BuildConfig
+import xyz.mommde.synctis.module
+import xyz.mommde.synctis.routing.MiscResponse
 import kotlin.test.Test
 
 class KtorTestFrameworkMiscRoute {

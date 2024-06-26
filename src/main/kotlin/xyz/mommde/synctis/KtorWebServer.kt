@@ -1,4 +1,4 @@
-package template.group.name
+package xyz.mommde.synctis
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.serialization.kotlinx.json.*
@@ -18,7 +18,7 @@ import org.koin.logger.slf4jLogger
 import org.slf4j.event.Level as Slf4jLevel
 import org.koin.core.logger.Level as KoinLevel
 
-import template.group.name.routing.MiscRouting
+import xyz.mommde.synctis.routing.MiscRouting
 
 private val engine = CIO
 private val ktorLogger = KotlinLogging.logger { }
