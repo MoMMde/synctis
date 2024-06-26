@@ -4,12 +4,15 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*
+import io.ktor.client.plugins.cookies.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.util.pipeline.*
+import xyz.mommde.synctis.Config
 import xyz.mommde.synctis.untis.WebUntisApi
 import xyz.mommde.synctis.untis.legacy.methods.WebUntisLegacyAuthenticationRequest
+import xyz.mommde.synctis.untis.legacy.methods.WebUntisLegacyLogoutRequest
 import kotlin.math.log
 
 /**
@@ -20,17 +23,25 @@ import kotlin.math.log
  * https://untis-sr.ch/telechargements/
  */
 class WebUntisLegacyClient(
-    private val client: HttpClient
+    private val client: HttpClient,
+    private val school: String = Config.WebUntis.SCHOOL,
 ) : WebUntisApi {
     private var jSessionId: String? = null
     private val logger = KotlinLogging.logger { "WebUntisLegacyClient-${ProcessHandle.current().pid()}" }
     private suspend inline fun <reified T, reified V> sendPacket(id: String = "no_id_required", requestBuilder: WebUntisLegacyRPCRequestBuilder<T, V>): GeneralLegacyPacketResponse<V> {
         logger.info { "Sending new legacy JSON-RPC Packet. (method=${requestBuilder.method}; instance=$requestBuilder)" }
+
         val response = client.post {
             setBody(GeneralLegacyPacketRequest(id, requestBuilder.method, requestBuilder.body))
             contentType(ContentType.Application.Json)
+            jSessionId?.let {
+                cookie("JSESSIONID", it)
+            }
+            cookie("school", school)
+
             requestBuilder.requestBuilder.invoke(this)
         }
+
         val readBodyInSuspendedContext = response.bodyAsText()
         logger.debug { "Received response: ${response.status} $readBodyInSuspendedContext" }
 
@@ -51,14 +62,20 @@ class WebUntisLegacyClient(
         return body
     }
 
-    override suspend fun login(): Boolean {
-        val authentication = sendPacket(requestBuilder = WebUntisLegacyAuthenticationRequest("fosbosmm"))
+    override suspend fun login(username: String, password: String): Boolean {
+        logger.info { "Authenticating as $username at $school" }
+        val authentication = sendPacket(requestBuilder = WebUntisLegacyAuthenticationRequest(school, username, password))
         jSessionId = authentication.result?.sessionId
         return authentication.result != null
     }
 
     override suspend fun logout() {
+        val logout = sendPacket(requestBuilder = WebUntisLegacyLogoutRequest())
+        if (logout.result != null)
+            throw WebUnitsLegacyRPCError("result not null after logout. Something went wrong")
 
+        jSessionId = null
+        logger.info { "Logout successful. JSESSIONID cleared" }
     }
 }
 

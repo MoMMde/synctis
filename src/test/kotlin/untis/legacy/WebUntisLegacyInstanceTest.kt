@@ -1,9 +1,12 @@
 package untis.legacy
 
+import io.ktor.client.*
 import io.ktor.server.testing.*
 import junit.framework.TestCase.assertNotNull
+import kotlinx.coroutines.runBlocking
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
+import org.koin.java.KoinJavaComponent.get
 import org.koin.java.KoinJavaComponent.inject
 import org.koin.test.KoinTest
 import org.koin.test.inject
@@ -25,25 +28,17 @@ class WebUntisLegacyInstanceTest : KoinTest {
 
     @Test
     fun `can create legacy instance of WebUntis Legacy`() {
-        val koinApp = startKoin {
-            modules(webUntisModule)
-        }
-        val instance = WebUntisLegacyClient(koinApp.koin.get())
+        val instance = WebUntisLegacyClient(get(HttpClient::class.java))
         assertNotNull(instance)
     }
 
     @Test
-    fun `login to WebUntis Legacy with fake backend`() = testApplication {
-        application {
-            module()
+    fun `login and logout of WebUntis`() {
+        runBlocking {
+            val legacyClient by inject<WebUntisLegacyClient>()
+            legacyClient.login()
+            legacyClient.logout()
         }
-
-        externalServices {
-
-        }
-        val legacyClient by inject<WebUntisLegacyClient>()
-        legacyClient.login()
-
     }
 
     @AfterTest

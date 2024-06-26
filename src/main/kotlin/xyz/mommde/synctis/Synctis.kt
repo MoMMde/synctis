@@ -4,10 +4,7 @@ import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.http.*
-import io.ktor.serialization.kotlinx.*
 import io.ktor.serialization.kotlinx.json.*
-import kotlinx.serialization.StringFormat
 import org.koin.dsl.module
 import xyz.mommde.synctis.generated.BuildConfig
 import xyz.mommde.synctis.untis.legacy.WebUntisLegacyClient

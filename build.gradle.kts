@@ -58,8 +58,11 @@ tasks {
     test {
         useJUnitPlatform()
 
-        environment("UNTIS_SERVER", "urania.webuntis.com")
         environment("DEBUG", "true")
+
+        readEnvFile(File(".env")) { key, value ->
+            environment(key, value)
+        }
 
         jvmArgs("-Dorg.slf4j.simpleLogger.defaultLogLevel=debug")
     }

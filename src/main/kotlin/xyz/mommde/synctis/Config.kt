@@ -12,6 +12,9 @@ object Config {
 
     object WebUntis : EnvConf("UNTIS_") {
         val SERVER by getEnv()
+        val USERNAME by getEnv()
+        val PASSWORD by getEnv()
+        val SCHOOL by getEnv()
     }
 
     val USER_AGENT by getEnv(default = "Synctis@${BuildConfig.VERSION} (${BuildConfig.GIT_SHA})")

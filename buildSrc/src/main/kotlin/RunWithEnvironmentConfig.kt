@@ -32,11 +32,16 @@ abstract class RunWithEnvironmentConfig : JavaExec() {
             error("Could not find environment file: ${envFile.absolutePath}")
         }
 
-        val content = envFile.readLines()
-
-        content.filter { it.isNotEmpty() && !it.startsWith("#") }.forEach { line ->
-            val (key, value) = line.split(Pattern.compile("="), 2)
-            this.environment(key, value)
+        readEnvFile(envFile) { key, value ->
+            environment(key, value)
         }
     }
+}
+
+fun readEnvFile(file: File, invokeable: (String, String) -> Unit) {
+    file.readLines()
+        .filter { it.isNotEmpty() && !it.startsWith("#") }.forEach { line ->
+            val (key, value) = line.split(Pattern.compile("="), 2)
+            invokeable(key, value)
+        }
 }
