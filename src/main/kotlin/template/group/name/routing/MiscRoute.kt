@@ -5,8 +5,8 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import template.group.`ktor-template`.generated.BuildConfig
 import template.group.name.Config
+import xyz.mommde.synctis.generated.BuildConfig
 
 @Serializable
 internal data class MiscResponse(

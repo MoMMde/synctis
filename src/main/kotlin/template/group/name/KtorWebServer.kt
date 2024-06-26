@@ -22,6 +22,7 @@ import template.group.name.routing.MiscRouting
 
 private val engine = CIO
 private val ktorLogger = KotlinLogging.logger { }
+
 private val json = Json {
     prettyPrint = true
     ignoreUnknownKeys = true
@@ -33,7 +34,6 @@ internal fun environment() = applicationEngineEnvironment {
         port = Config.PORT
         host = Config.HOST
     }
-    log = ktorLogger
     developmentMode = Config.DEBUG
 
     module {
@@ -48,19 +48,16 @@ internal fun Application.module() {
         json(json)
     }
 
-
     install(CallLogging) {
         level = if (Config.DEBUG) Slf4jLevel.DEBUG else Slf4jLevel.INFO
-        logger = ktorLogger.
         format { call ->
             val method = call.request.httpMethod.value
             val path = call.request.path()
             val contentType = call.request.contentType()
             val queryParameters = call.request.queryParameters.toMap()
                 .map { "${it.key}=${it.value.joinToString(", ")}" }
-
             val originHost = call.request.origin.remoteHost
-            val originPort = call .request.origin.remotePort
+            val originPort = call.request.origin.remotePort
             val status = call.response.status()
             "[$originHost:$originPort $method $path] $contentType $queryParameters ($status)"
         }
@@ -68,7 +65,6 @@ internal fun Application.module() {
 
     install(Koin) {
         slf4jLogger(level = if(Config.DEBUG) KoinLevel.DEBUG else KoinLevel.INFO)
-        modules(repositoryModule)
     }
 
     routing {

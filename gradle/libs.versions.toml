@@ -8,9 +8,6 @@ ktor = "2.3.11"
 # https://logback.qos.ch/download.html
 logback = "1.5.6"
 stdx = "1.3.0"
-# https://litote.org/kmongo/quick-start/ => DEPRECATED
-# https://www.mongodb.com/developer/products/mongodb/getting-started-kotlin-driver/
-mongodb = "4.10.1"
 # https://github.com/oshai/kotlin-logging
 klogger = "7.0.0"
 # https://github.com/05nelsonm/kmp-process
@@ -34,7 +31,6 @@ stdx-envconf = { group = "dev.schlaubi", name = "stdx-envconf" }
 stdx-logging = { group = "dev.schlaubi", name = "stdx-logging" }
 stdx-coroutines = { group = "dev.schlaubi", name = "stdx-coroutines" }
 
-mongodb = { group = "org.mongodb", name = "mongodb-driver-kotlin-coroutine", version.ref = "mongodb" }
 klogger = { group = "io.github.oshai", name = "kotlin-logging-jvm", version.ref = "klogger" }
 
 slf4jSimple = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf4j"}

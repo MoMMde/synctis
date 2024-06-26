@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.buildConfig)
 }
 
-group = "template.group"
+group = "xyz.mommde"
 version = "1.0"
 
 dependencies {
@@ -25,8 +25,6 @@ dependencies {
     implementation(libs.stdx.envconf)
     implementation(libs.stdx.logging)
     implementation(libs.stdx.coroutines)
-
-    implementation(libs.mongodb)
 
     implementation(libs.klogger)
     implementation(libs.slf4jSimple)
@@ -59,7 +57,7 @@ tasks {
 }
 
 application {
-    mainClass.set("template.group.name.TemplateKt")
+    mainClass.set("xyz.mommde.synctis.SynctisKt")
 }
 
 val versionKey = "VERSION"

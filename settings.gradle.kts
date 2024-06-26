@@ -1,4 +1,4 @@
-rootProject.name = "ktor-template"
+rootProject.name = "synctis"
 
 pluginManagement {
     repositories {

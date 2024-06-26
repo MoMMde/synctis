@@ -9,9 +9,9 @@ import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.testing.*
 import junit.framework.TestCase.assertEquals
-import template.group.`ktor-template`.generated.BuildConfig
 import template.group.name.module
 import template.group.name.routing.MiscResponse
+import xyz.mommde.synctis.generated.BuildConfig
 import kotlin.test.Test
 
 class KtorTestFrameworkMiscRoute {
