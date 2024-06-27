@@ -52,7 +52,8 @@ class WebUntisLegacyInstanceTest : KoinTest {
         runBlocking {
             val legacyClient by inject<WebUntisLegacyClient>()
             legacyClient.login()
-            legacyClient.getCalendarForWeek(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date)
+            val calendar = legacyClient.getCalendarForWeek(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date)
+            println(calendar)
             legacyClient.logout()
         }
     }

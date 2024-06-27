@@ -15,6 +15,7 @@ object Config {
         val USERNAME by getEnv()
         val PASSWORD by getEnv()
         val SCHOOL by getEnv()
+        val SCHOOL_LOCATION by getEnv(default = "")
     }
 
     val USER_AGENT by getEnv(default = "Synctis@${BuildConfig.VERSION} (${BuildConfig.GIT_SHA})")

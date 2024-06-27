@@ -99,6 +99,9 @@ class WebUntisLegacyClient(
         if (personId == null)
             throw IllegalStateException("Not logged in. Please call login() first")
 
+        val rooms = getRooms()
+        logger.info { "Loaded ${rooms?.size} rooms for referencing with Timetable" }
+
         val subjects = getSubjects()
         logger.info { "Loaded ${subjects?.size} subjects for referencing with Timetable" }
 
@@ -111,11 +114,19 @@ class WebUntisLegacyClient(
 
             val subjectId = subjectIdObject.subjects.firstOrNull()?.id
             val subject = subjects?.firstOrNull { it.id == subjectId }
+
+            val roomId = subjectIdObject.rooms.firstOrNull()?.id
+            val room = rooms?.firstOrNull { it.id == roomId }
+            val renderedRoom = if (Config.WebUntis.SCHOOL_LOCATION.isEmpty())
+                room?.name
+            else
+                Config.WebUntis.SCHOOL_LOCATION + ", " + room!!.name
+
             SynctisCalendarEvent(
                 start = subjectIdObject.start.atDate(subjectIdObject.date),
                 end = subjectIdObject.end.atDate(subjectIdObject.date),
                 color = subject?.backgroundColor,
-                location = "",
+                location = renderedRoom,
                 name = subject?.longName ?: "No name for SubjectId: $subjectId",
                 teacher = "",
                 homework = ""
@@ -126,4 +137,5 @@ class WebUntisLegacyClient(
 
     private suspend fun getSubjects() = sendPacket(requestBuilder = WebUntisLegacyRequestSubjectsMethod).result
 
+    private suspend fun getRooms() = sendPacket(requestBuilder = WebUntisLegacyRequestRoomsMethod).result
 }
