@@ -13,6 +13,8 @@ internal interface WebUntisApi : KoinComponent {
         username: String = Config.WebUntis.USERNAME,
         password: String = Config.WebUntis.PASSWORD
     ): Boolean
+    // Terminates current session
     suspend fun logout()
+    // Returns the Calendar for the week this day is in
     suspend fun getCalendarForWeek(week: LocalDate): List<SynctisCalendarEvent>
 }

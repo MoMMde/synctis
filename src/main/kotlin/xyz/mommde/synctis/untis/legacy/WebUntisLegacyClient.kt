@@ -16,6 +16,7 @@ import xyz.mommde.synctis.untis.legacy.methods.WebUntisLegacyRPCRequestBuilder
 import xyz.mommde.synctis.untis.legacy.methods.WebUntisLegacyRequestSubjectsMethod
 import xyz.mommde.synctis.untis.legacy.methods.WebUntisLegacyTimetableRequestMethod
 import xyz.mommde.synctis.untis.legacy.objects.WebUntisLegacyRPCError
+import java.time.temporal.TemporalAdjusters
 
 /**
  * This instance uses the Legacy API provided by WebUntis
@@ -93,19 +94,20 @@ class WebUntisLegacyClient(
      * Will return a list of CalendarEvent starting from
      * @param week
      * Ending on week + 7 days.
-     *
+     * Will also freshly request getRooms & getSubjects for referencing with timetable
      */
     override suspend fun getCalendarForWeek(week: LocalDate): List<SynctisCalendarEvent> {
         if (personId == null)
             throw IllegalStateException("Not logged in. Please call login() first")
 
+        val monday = week.toJavaLocalDate().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).toKotlinLocalDate()
         val rooms = getRooms()
         logger.info { "Loaded ${rooms?.size} rooms for referencing with Timetable" }
 
         val subjects = getSubjects()
         logger.info { "Loaded ${subjects?.size} subjects for referencing with Timetable" }
 
-        val timetableMethod = WebUntisLegacyTimetableRequestMethod(personId!!, week, week.plus(DatePeriod(days = 7)))
+        val timetableMethod = WebUntisLegacyTimetableRequestMethod(personId!!, monday, monday.plus(DatePeriod(days = 7)))
         val timetable = sendPacket(requestBuilder = timetableMethod).result!!
 
         return timetable.map { subjectIdObject ->
@@ -117,6 +119,7 @@ class WebUntisLegacyClient(
 
             val roomId = subjectIdObject.rooms.firstOrNull()?.id
             val room = rooms?.firstOrNull { it.id == roomId }
+
             val renderedRoom = if (Config.WebUntis.SCHOOL_LOCATION.isEmpty())
                 room?.name
             else
