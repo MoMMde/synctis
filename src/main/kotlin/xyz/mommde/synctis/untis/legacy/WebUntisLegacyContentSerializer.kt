@@ -1,7 +1,6 @@
 package xyz.mommde.synctis.untis.legacy
 
 import io.ktor.client.statement.*
-import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
 internal val json = Json {

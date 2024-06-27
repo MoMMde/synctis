@@ -1,9 +1,9 @@
 package xyz.mommde.synctis.untis
 
-import org.koin.core.Koin
+import kotlinx.datetime.LocalDate
 import org.koin.core.component.KoinComponent
-import org.koin.core.extension.KoinExtension
 import xyz.mommde.synctis.Config
+import xyz.mommde.synctis.calendar.SynctisCalendarEvent
 
 // https://untis-sr.ch/wp-content/uploads/2019/11/2018-09-20-WebUntis_JSON_RPC_API.pdf
 internal interface WebUntisApi : KoinComponent {
@@ -14,4 +14,5 @@ internal interface WebUntisApi : KoinComponent {
         password: String = Config.WebUntis.PASSWORD
     ): Boolean
     suspend fun logout()
+    suspend fun getCalendarForWeek(week: LocalDate): List<SynctisCalendarEvent>
 }
