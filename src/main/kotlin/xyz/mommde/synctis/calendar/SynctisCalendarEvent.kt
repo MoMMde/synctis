@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SynctisCalendarEvent(
+    val id: String,
     val start: LocalDateTime,
     val end: LocalDateTime,
     val name: String = "School",

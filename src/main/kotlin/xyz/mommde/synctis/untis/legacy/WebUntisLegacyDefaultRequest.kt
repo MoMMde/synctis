@@ -12,4 +12,6 @@ val defaultLegacyRequest: DefaultRequest.DefaultRequestBuilder.() -> Unit = {
     url.host = Config.WebUntis.SERVER
     // https://untis-sr.ch/wp-content/uploads/2019/11/2018-09-20-WebUntis_JSON_RPC_API.pdf
     url.path("WebUntis", "jsonrpc.do")
+
+    userAgent(Config.USER_AGENT)
 }

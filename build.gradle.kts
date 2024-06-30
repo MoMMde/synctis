@@ -31,6 +31,8 @@ dependencies {
 
     implementation(libs.kotlinx.datetime)
 
+    implementation(libs.krontab)
+
     implementation(libs.klogger)
     implementation(libs.slf4jSimple)
 

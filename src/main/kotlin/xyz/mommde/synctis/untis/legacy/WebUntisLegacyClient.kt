@@ -132,7 +132,8 @@ class WebUntisLegacyClient(
                 location = renderedRoom,
                 name = subject?.longName ?: "No name for SubjectId: $subjectId",
                 teacher = "",
-                homework = ""
+                homework = "",
+                id = subjectIdObject.id.toString(),
             )
         }
     }
