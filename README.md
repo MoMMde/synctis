@@ -27,11 +27,11 @@ Take into Account that every time references to the Time Zone of the Calendar.
 
 **UNTIS_SERVER**: The Server your School uses. (Required)  
 
-**UNTIS_USERNAME**: Your Username (Required)  
+**UNTIS_USERNAME**: Your Username. (Required)  
 
 **UNTIS_PASSWORD**: Your Password. (Required)  
 
-**UNTIS_SCHOOL**: Your School ID (Required)  
+**UNTIS_SCHOOL**: Your School ID. (Required)  
 
 **UNTIS_SCHOOL_LOCATION**: Can be used to give more details in the `Location` Field provided by the Google API. (Optional)  
 
