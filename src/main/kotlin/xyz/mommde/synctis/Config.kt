@@ -8,7 +8,7 @@ import xyz.mommde.synctis.google.implementation.objects.GoogleCalendarEventType
 
 object Config {
     val PORT by getEnv(default = 8080) { it.toInt() }
-    val HOST by getEnv(default = "0.0.0.0")
+    val HOST by getEnv(default = "localhost")
     val DEBUG by getEnv(default = false) { it.toBoolean() }
 
     object WebUntis : EnvConf("UNTIS_") {

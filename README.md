@@ -17,7 +17,7 @@ Take into Account that every time references to the Time Zone of the Calendar.
 
 **PORT**: On which port the Google Authorization Flow will take place. Defaults to `8080`. (Optional)  
 
-**HOST**: On which Host the Google Authorization Flow will listen. Defaults to `0.0.0.0`. (Optional)  
+**HOST**: On which Host the Google Authorization Flow will listen. Defaults to `localhost`. (Optional)  
 
 **GOOGLE_AUTH_FILE**: Which file stores the Google Credentials. This will be written first on Google Authorization and auto. updates when the Token Expires. For mor Info see [Googles OAuth2 Flow](https://developers.google.com/identity/openid-connect/openid-connect). Defaults to `.google-auth` (Optional)
 
