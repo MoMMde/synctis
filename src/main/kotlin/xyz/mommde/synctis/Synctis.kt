@@ -31,20 +31,24 @@ val webUntisModule = module {
 
 val googleModule = module {
     single { googleAuthenticationFileOrNull() }
-    single { GoogleClientImpl() }
+    single { GoogleClientImpl(get()) }
 }
 
-val scheduleModule = module {
-    single { runBlocking { synchronizer(get(), get()) } }
-}
 
-fun main() {
+suspend fun main() {
     if (Config.DEBUG)
         println("Debug enabled")
     println("Running Version: ${BuildConfig.VERSION} (${BuildConfig.GIT_SHA}; branch=${BuildConfig.GIT_BRANCH})")
 
-    startKoin {
+    val koin = startKoin {
         modules(webUntisModule)
-        modules(googleModule)
+    }.koin
+
+    val googleCredentials = googleAuthenticationFileOrNull()
+    if (googleCredentials == null) {
+        println("Could not load Google Auth data. Setting up Ktor Server.")
+        runKtor()
+    } else {
+        koin.loadModules(listOf(googleModule))
     }
 }

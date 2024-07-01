@@ -24,6 +24,9 @@ object Config {
         val CALENDAR_ID by getEnv()
         val DEFAULT_COLOR_ID by getEnv(default = "")
         val DEFAULT_EVENT_TYPE by getEnv(default = GoogleCalendarEventType.FocusTime) { GoogleCalendarEventType.valueOf(it.uppercase()) }
+
+        val CLIENT_ID by getEnv()
+        val CLIENT_SECRET by getEnv()
     }
 
     val USER_AGENT by getEnv(default = "Synctis@${BuildConfig.VERSION} (${BuildConfig.GIT_SHA})")

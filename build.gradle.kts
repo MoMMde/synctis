@@ -19,6 +19,7 @@ dependencies {
 
     implementation(libs.ktor.server.cio)
     implementation(libs.ktor.server.logging)
+    implementation(libs.ktor.server.auth)
 
     implementation(libs.ktor.client.cio)
     implementation(libs.ktor.client.contentnegotiation)

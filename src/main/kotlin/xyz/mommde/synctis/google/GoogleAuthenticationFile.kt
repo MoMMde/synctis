@@ -1,5 +1,6 @@
 package xyz.mommde.synctis.google
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import xyz.mommde.synctis.Config
 import xyz.mommde.synctis.untis.legacy.json
@@ -10,6 +11,7 @@ import kotlin.io.path.readText
 
 @Serializable
 data class GoogleAuthenticationData(
+    @SerialName("access_token")
     val accessToken: String,
     val scope: String,
     val tokenType: String,

@@ -11,12 +11,13 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import xyz.mommde.synctis.Config
 import xyz.mommde.synctis.calendar.SynctisCalendarEvent
+import xyz.mommde.synctis.google.GoogleAuthenticationData
 import xyz.mommde.synctis.google.GoogleClient
 import xyz.mommde.synctis.google.implementation.objects.*
 
-class GoogleClientImpl : GoogleClient {
+class GoogleClientImpl(val googleAuthenticationData: GoogleAuthenticationData) : GoogleClient {
     private val client = HttpClient(CIO) {
-        install(DefaultRequest, defaultGoogleRequest)
+        install(DefaultRequest, defaultGoogleRequest(googleAuthenticationData))
     }
     // https://developers.google.com/calendar/api/v3/reference/calendars/get
     override val timeZone: suspend () -> TimeZone
