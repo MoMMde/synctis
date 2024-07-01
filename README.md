@@ -21,9 +21,14 @@ Take into Account that every time references to the Time Zone of the Calendar.
 
 **GOOGLE_AUTH_FILE**: Which file stores the Google Credentials. This will be written first on Google Authorization and auto. updates when the Token Expires. For mor Info see [Googles OAuth2 Flow](https://developers.google.com/identity/openid-connect/openid-connect). Defaults to `.google-auth` (Optional)
 
+**GOOGLE_CLIENT_ID**: Your Google OAuth2 Client ID. (Required)  
+
+**GOOGLE_CLIENT_SECRET**: The matching Secret to `GOOGLE_CLIENT_ID`. (Required)  
+
 **GOOGLE_CALENDAR_ID**: On which Calendar the events will be written. This ID can be obtained via [GCalendar](calendar.google.com). (Required)  
 
 **GOOGLE_DEFAULT_EVENT_TYPE**: How you will be presented in Google. Defaults to `FOCUSTIME`. See [GoogleCalendarEventType](https://github.com/MoMMde/synctis/blob/development/src/main/kotlin/xyz/mommde/synctis/google/implementation/objects/GoogleCalendarEventType.kt). (Optional)  
+
 
 **UNTIS_SERVER**: The Server your School uses. (Required)  
 

@@ -10,7 +10,7 @@ abstract class RunWithEnvironmentConfig : JavaExec() {
     abstract val environmentFile: Property<File>
 
     init {
-        mainClass.set("template.group.name.TemplateKt")
+        mainClass.set("xyz.mommde.synctis.SynctisKt")
     }
 
     override fun exec() {

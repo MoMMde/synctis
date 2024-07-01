@@ -6,10 +6,10 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
+import io.ktor.server.auth.*
 import xyz.mommde.synctis.Config
-import xyz.mommde.synctis.google.GoogleAuthenticationData
 
-fun defaultGoogleRequest(googleAuthenticationData: GoogleAuthenticationData): DefaultRequest.DefaultRequestBuilder.() -> Unit = {
+fun defaultGoogleRequest(googleAuthenticationData: OAuthAccessTokenResponse.OAuth2): DefaultRequest.DefaultRequestBuilder.() -> Unit = {
     url.protocol = URLProtocol.HTTPS
     url.host = "www.googleapis.com"
 

@@ -7,15 +7,15 @@ import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
+import io.ktor.server.auth.*
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import xyz.mommde.synctis.Config
 import xyz.mommde.synctis.calendar.SynctisCalendarEvent
-import xyz.mommde.synctis.google.GoogleAuthenticationData
 import xyz.mommde.synctis.google.GoogleClient
 import xyz.mommde.synctis.google.implementation.objects.*
 
-class GoogleClientImpl(val googleAuthenticationData: GoogleAuthenticationData) : GoogleClient {
+class GoogleClientImpl(val googleAuthenticationData: OAuthAccessTokenResponse.OAuth2) : GoogleClient {
     private val client = HttpClient(CIO) {
         install(DefaultRequest, defaultGoogleRequest(googleAuthenticationData))
     }

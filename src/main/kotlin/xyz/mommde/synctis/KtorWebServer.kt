@@ -12,9 +12,15 @@ import io.ktor.server.plugins.*
 import io.ktor.server.plugins.callloging.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.request.*
+import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.server.sessions.*
 import io.ktor.util.*
+import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
+import xyz.mommde.synctis.google.oauth2.googleOAuthHandler
+import xyz.mommde.synctis.google.oauth2.googleOauthScopes
+import xyz.mommde.synctis.google.writeOauth2Token
 
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation as ClientContentNegotiation
 
@@ -52,27 +58,12 @@ internal fun Application.module() {
     }
 
     install(Authentication) {
-        oauth("google-oauth") {
-            urlProvider = { "http://localhost:8080/callback" }
-            providerLookup = {
-                OAuthServerSettings.OAuth2ServerSettings(
-                    name = "google",
-                    authorizeUrl = "https://accounts.google.com/o/oauth2/auth",
-                    accessTokenUrl = "https://accounts.google.com/o/oauth2/token",
-                    requestMethod = HttpMethod.Post,
-                    clientId = Config.Google.CLIENT_ID,
-                    clientSecret = Config.Google.CLIENT_SECRET,
-                    defaultScopes = listOf(
-                        "https://www.googleapis.com/auth/calendar",
-                        "https://www.googleapis.com/auth/calendar.events"),
-                    extraAuthParameters = listOf("access_type" to "offline"),
-                )
-            }
-            client = HttpClient {
+        runBlocking {
+            googleOAuthHandler(HttpClient {
                 install(ClientContentNegotiation) {
                     json(json)
                 }
-            }
+            })
         }
     }
 
@@ -96,6 +87,14 @@ internal fun Application.module() {
         authenticate("google-oauth") {
             get("/login") {
 
+            }
+            get("/callback") {
+                val currentPrincipal: OAuthAccessTokenResponse.OAuth2? = call.principal()
+                // redirects home if the url is not found before authorization
+                currentPrincipal?.let { principal ->
+                    writeOauth2Token(oauthToken = principal)
+                }
+                call.respondText("[Synctis] You can close this Window now!")
             }
             /**
              * Get Google Access Token https://ktor.io/docs/server-oauth.html#redirect-route
