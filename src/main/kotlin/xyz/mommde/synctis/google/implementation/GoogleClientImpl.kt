@@ -53,13 +53,15 @@ class GoogleClientImpl : GoogleClient {
                     start = event.start.toGoogleDateTime(timeZone),
                     end = event.end.toGoogleDateTime(timeZone),
                     description = """
+                    <hr>
                     <h2>Homework:</h2>
-                    <li><ul>${event.homework ?: "None"}</li></ul>
-                    <br>
+                    <ul><li>${event.homework ?: "None"}</li></ul>
+                    <hr>
                     <h2>Teacher:</h2>
                     <ul><li>${event.teacher ?: "N/A"}</li></ul>
-                    <br>
+                    <hr>
                     <h2>Details:</h2>
+                    <hr>
                 """.trimIndent(),
                     location = event.location,
                     summary = event.name ?: "School",
@@ -68,16 +70,6 @@ class GoogleClientImpl : GoogleClient {
             )
             contentType(ContentType.Application.Json)
         }
-        println(json.encodeToString(GoogleCalendarInsertNewEventRequestBody(
-            start = event.start.toGoogleDateTime(timeZone),
-            end = event.end.toGoogleDateTime(timeZone),
-            description = """
-                    <h2>Html Test</h2>
-                """.trimIndent(),
-            location = event.location,
-            summary = event.name ?: "School",
-            extendedProperties = GoogleCalendarPrivateExtendedProperties(GoogleCalendarPrivateExtendedProperties.Private(untis = event.id))
-        )))
         val bodyAsTextWithSuspendedContext = response.bodyAsText()
         logger.debug { "Response from insertion into Google Calendar: $bodyAsTextWithSuspendedContext" }
         val serializedBody = response.body<GoogleCalendarEvent>()
@@ -131,6 +123,7 @@ class GoogleClientImpl : GoogleClient {
         startDate: LocalDateTime,
         endDate: LocalDateTime
     ): HttpResponse {
+        val timeZone = timeZone
         logger.debug { "timeMax=${endDate.toRFC3339String(timeZone)} - timeMin=${startDate.toRFC3339String(timeZone)}" }
         return client.get("/calendar/v3/calendars/${Config.Google.CALENDAR_ID}/events") {
             parameter("timeMax", endDate.toRFC3339String(timeZone))
