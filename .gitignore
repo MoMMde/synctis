@@ -22,3 +22,8 @@ gradle-app.setting
 
 # Ignore Gradle build output directory
 build
+
+# Secrets shhhh
+.env
+client_secret*.json
+.google-auth

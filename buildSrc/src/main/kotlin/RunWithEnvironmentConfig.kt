@@ -10,7 +10,7 @@ abstract class RunWithEnvironmentConfig : JavaExec() {
     abstract val environmentFile: Property<File>
 
     init {
-        mainClass.set("template.group.name.TemplateKt")
+        mainClass.set("xyz.mommde.synctis.SynctisKt")
     }
 
     override fun exec() {
@@ -22,6 +22,9 @@ abstract class RunWithEnvironmentConfig : JavaExec() {
             ?.map { it.toPath() }
 
         copyEnvironment()
+        if(environment.getOrDefault("DEBUG", "FALSE").equals("TRUE")) {
+            jvmArgs("-Dorg.slf4j.simpleLogger.defaultLogLevel=debug")
+        }
         classpath(classPath)
         super.exec()
     }
@@ -32,11 +35,16 @@ abstract class RunWithEnvironmentConfig : JavaExec() {
             error("Could not find environment file: ${envFile.absolutePath}")
         }
 
-        val content = envFile.readLines()
-
-        content.filter { it.isNotEmpty() && !it.startsWith("#") }.forEach { line ->
-            val (key, value) = line.split(Pattern.compile("="), 2)
-            this.environment(key, value)
+        readEnvFile(envFile) { key, value ->
+            environment(key, value)
         }
     }
+}
+
+fun readEnvFile(file: File, invokeable: (String, String) -> Unit) {
+    file.readLines()
+        .filter { it.isNotEmpty() && !it.startsWith("#") }.forEach { line ->
+            val (key, value) = line.split(Pattern.compile("="), 2)
+            invokeable(key, value)
+        }
 }

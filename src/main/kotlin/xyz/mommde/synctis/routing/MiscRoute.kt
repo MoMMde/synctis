@@ -23,11 +23,11 @@ fun Route.MiscRouting() {
     get("/misc") {
         call.respond(
             MiscResponse(
-            BuildConfig.VERSION,
-            BuildConfig.GIT_SHA,
-            BuildConfig.GIT_BRANCH,
-            Config.DEBUG
-        )
+                BuildConfig.VERSION,
+                BuildConfig.GIT_SHA,
+                BuildConfig.GIT_BRANCH,
+                Config.DEBUG
+            )
         )
     }
 }
