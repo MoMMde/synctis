@@ -2,9 +2,13 @@ package xyz.mommde.synctis.untis.legacy
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.client.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.plugins.*
+import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.*
 import kotlinx.datetime.*
 import xyz.mommde.synctis.Config
 import xyz.mommde.synctis.calendar.SynctisCalendarEvent
@@ -26,9 +30,15 @@ import java.time.temporal.TemporalAdjusters
  * https://untis-sr.ch/telechargements/
  */
 class WebUntisLegacyClient(
-    private val client: HttpClient,
     private val school: String = Config.WebUntis.SCHOOL,
 ) : WebUntisApi {
+    private val client = HttpClient(CIO) {
+        install(ContentNegotiation) {
+            json(xyz.mommde.synctis.json)
+        }
+
+        install(DefaultRequest, defaultLegacyRequest)
+    }
     private var jSessionId: String? = null
     private var personId: Int? = null
     private val logger = KotlinLogging.logger { "WebUntisLegacyClient-${ProcessHandle.current().pid()}" }
@@ -123,14 +133,14 @@ class WebUntisLegacyClient(
             val renderedRoom = if (Config.WebUntis.SCHOOL_LOCATION.isEmpty())
                 room?.name
             else
-                Config.WebUntis.SCHOOL_LOCATION + ", " + room!!.name
+                Config.WebUntis.SCHOOL_LOCATION + ", Room " + room!!.name
 
             SynctisCalendarEvent(
                 start = subjectIdObject.start.atDate(subjectIdObject.date),
                 end = subjectIdObject.end.atDate(subjectIdObject.date),
                 color = subject?.backgroundColor,
                 location = renderedRoom,
-                name = subject?.longName ?: "No name for SubjectId: $subjectId",
+                name = subject?.longName,
                 teacher = "",
                 homework = "",
                 id = subjectIdObject.id.toString(),

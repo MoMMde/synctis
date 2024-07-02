@@ -14,7 +14,6 @@ klogger = "7.0.0"
 kmp-process = "0.1.0-alpha03"
 # https://www.slf4j.org/download.html
 slf4j = "2.0.13"
-koin = "3.5.6"
 # https://github.com/Kotlin/kotlinx-datetime?tab=readme-ov-file#gradle
 kotlinx-datetime = "0.6.0"
 krontab = "2.3.0"
@@ -46,11 +45,6 @@ slf4jSimple = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf4j
 
 ktor-server-testHost = { group = "io.ktor", name = "ktor-server-test-host" }
 kotlinTest = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
-
-koin-bom = { group = "io.insert-koin", name = "koin-bom", version.ref = "koin" }
-koin-ktor = { group = "io.insert-koin", name = "koin-ktor" }
-koin-logging = { group = "io.insert-koin", name = "koin-logger-slf4j" }
-koin-test = { group = "io.insert-koin", name = "koin-test" }
 
 [plugins]
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

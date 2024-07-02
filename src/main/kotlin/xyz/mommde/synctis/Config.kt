@@ -23,7 +23,7 @@ object Config {
         val AUTH_FILE by getEnv(default = ".google-auth")
         val CALENDAR_ID by getEnv()
         val DEFAULT_COLOR_ID by getEnv(default = "")
-        val DEFAULT_EVENT_TYPE by getEnv(default = GoogleCalendarEventType.FocusTime) { GoogleCalendarEventType.valueOf(it.uppercase()) }
+        val DEFAULT_EVENT_TYPE by getEnv(default = GoogleCalendarEventType.Default) { GoogleCalendarEventType.valueOf(it.uppercase()) }
 
         val CLIENT_ID by getEnv()
         val CLIENT_SECRET by getEnv()

@@ -26,12 +26,12 @@ data class GoogleCalendarInsertNewEventRequestBody(
      *
      * (Wrote this before I saw 'extendedProperties' which is way more suited for this job)
      */
-    val id: String = "untisintegration" + {
-        val stringBuilder = StringBuilder()
-        repeat(10) { stringBuilder.append((('a'..'v') + ('0'..'9')).random()) }
-        stringBuilder.toString()
-    },
-    val extendedProperties: GoogleCalendarPrivateExtendedProperties.Private,
+    //val id: String = "untisintegration" + run {
+    //    val stringBuilder = StringBuilder()
+    //    repeat(10) { stringBuilder.append((('a'..'v') + ('0'..'9')).random()) }
+    //    stringBuilder.toString()
+    //},
+    val extendedProperties: GoogleCalendarPrivateExtendedProperties,
     val location: String? = null,
-    val summary: String = "School"
+    val summary: String? = "School"
 )

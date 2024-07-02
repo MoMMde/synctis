@@ -1,8 +1,6 @@
 package xyz.mommde.synctis
 
-import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.client.*
-import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
@@ -14,29 +12,18 @@ import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.server.sessions.*
 import io.ktor.util.*
 import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.json.Json
 import xyz.mommde.synctis.google.oauth2.googleOAuthHandler
-import xyz.mommde.synctis.google.oauth2.googleOauthScopes
 import xyz.mommde.synctis.google.writeOauth2Token
 
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation as ClientContentNegotiation
 
 import org.slf4j.event.Level as Slf4jLevel
-import org.koin.core.logger.Level as KoinLevel
 
 import xyz.mommde.synctis.routing.MiscRouting
 
 private val engine = CIO
-private val ktorLogger = KotlinLogging.logger { }
-
-private val json = Json {
-    prettyPrint = true
-    ignoreUnknownKeys = true
-    encodeDefaults = true
-}
 
 internal fun environment() = applicationEngineEnvironment {
     connector {

@@ -22,6 +22,9 @@ abstract class RunWithEnvironmentConfig : JavaExec() {
             ?.map { it.toPath() }
 
         copyEnvironment()
+        if(environment.getOrDefault("DEBUG", "FALSE").equals("TRUE")) {
+            jvmArgs("-Dorg.slf4j.simpleLogger.defaultLogLevel=debug")
+        }
         classpath(classPath)
         super.exec()
     }

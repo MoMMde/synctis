@@ -8,34 +8,31 @@ import xyz.mommde.synctis.calendar.SynctisCalendarEvent
  * This can only happen when doEventsEqual returns true.
  */
 fun mergeEvents(events: List<SynctisCalendarEvent>): List<SynctisCalendarEvent> {
-    val result = mutableListOf<SynctisCalendarEvent>()
-    events.groupBy { it.start.date }.forEach { groupStartingSameDate ->
-        val startTimeToEvent = groupStartingSameDate.value.map {
-            it.start.time to it
-        }.toMap().toMutableMap()
-        groupStartingSameDate.value.forEach { event ->
-            val eventThatStartsWhenCurrentEnds = startTimeToEvent[event.start.time] ?: return@forEach
-            if (doEventsEqual(event, eventThatStartsWhenCurrentEnds)) {
-                result.add(event.copy(
-                    homework = event.homework + "\n" + eventThatStartsWhenCurrentEnds.homework,
-                    start = event.start,
-                    end = eventThatStartsWhenCurrentEnds.end,
+    val startToEventMap = events.associateBy { it.start }.toMutableMap()
+    events.forEach {
+        val otherEvent = startToEventMap[it.end]
+        if (otherEvent != null && doEventsEqual(it, otherEvent)) {
+            return mergeEvents(events.toMutableList().apply {
+                remove(it)
+                remove(otherEvent)
+                add(SynctisCalendarEvent(
+                    id = it.id,
+                    start = it.start,
+                    end = otherEvent.end,
+                    location = it.location,
+                    teacher = it.teacher,
+                    name = it.name,
+                    color = it.color,
+                    homework = it.homework
                 ))
-                startTimeToEvent.remove(eventThatStartsWhenCurrentEnds.start.time)
-            } else {
-               result.add(event)
-            }
+            })
         }
     }
-    if (result.size != events.size) {
-        return mergeEvents(result)
-    }
-    return result
+    return events
 }
 
 private fun doEventsEqual(first: SynctisCalendarEvent, second: SynctisCalendarEvent): Boolean {
     return first.name == second.name &&
-            first.color == second.color &&
             first.location == second.location &&
             first.teacher == second.teacher
 }

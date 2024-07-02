@@ -8,13 +8,11 @@ import xyz.mommde.synctis.Config
 
 @Serializable
 data class GoogleDateTime(
-    val date: LocalDate,
-    val dateTime: LocalDateTime,
+    val dateTime: String,
     val timeZone: TimeZone
 )
 
 fun LocalDateTime.toGoogleDateTime(timeZone: TimeZone): GoogleDateTime = GoogleDateTime(
-    date = date,
-    dateTime = this,
+    dateTime = this.toRFC3339String(timeZone),
     timeZone = timeZone
 )

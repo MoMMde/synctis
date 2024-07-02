@@ -2,12 +2,7 @@ package xyz.mommde.synctis.untis.legacy
 
 import io.ktor.client.statement.*
 import kotlinx.serialization.json.Json
-
-internal val json = Json {
-    prettyPrint = true
-    ignoreUnknownKeys = true
-    encodeDefaults = true
-}
+import xyz.mommde.synctis.json
 
 /**
  * Untis does not provide an Content Type Header, so Ktor does not know how to serialize an request using body()
