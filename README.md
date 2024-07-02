@@ -9,7 +9,7 @@ Take into Account that every time references to the Time Zone of the Calendar.
 
 **RUN_SCHEDULE**: When an Synchronization takes place. Written in an Crontab Way. See https://crontab.guru to build your Own. Defaults to `"0 5 1-31 * *"`, which means that it runs every day at 5 in the morning. (Optional)  
 
-**DAYS_IN_FUTURE**: How many days in the future the calendar synchroniyes. So when `RUN_SCHEDULE` invokes, all events from today until today + `DAYS_IN_FUTURE` will be copied over. Defaults to `14`. (Optional)     
+**WEEKS_IN_FUTURE**: How many weeks in the future the calendar synchronizes. So when `RUN_SCHEDULE` invokes, all events from today until today + `WEEKS_IN_FUTURE` weeks will be copied over. Defaults to `2`. (Optional)     
 
 **USER_AGENT**: How the Http Client will present itself. (Optional)  
 
@@ -28,7 +28,6 @@ Take into Account that every time references to the Time Zone of the Calendar.
 **GOOGLE_CALENDAR_ID**: On which Calendar the events will be written. This ID can be obtained via [GCalendar](calendar.google.com). (Required)  
 
 **GOOGLE_DEFAULT_EVENT_TYPE**: How you will be presented in Google. Defaults to `FOCUSTIME`. See [GoogleCalendarEventType](https://github.com/MoMMde/synctis/blob/development/src/main/kotlin/xyz/mommde/synctis/google/implementation/objects/GoogleCalendarEventType.kt). (Optional)  
-
 
 **UNTIS_SERVER**: The Server your School uses. (Required)  
 
