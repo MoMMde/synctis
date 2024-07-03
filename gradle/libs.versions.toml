@@ -14,15 +14,19 @@ klogger = "7.0.0"
 kmp-process = "0.1.0-alpha03"
 # https://www.slf4j.org/download.html
 slf4j = "2.0.13"
-koin = "3.5.6"
+# https://github.com/Kotlin/kotlinx-datetime?tab=readme-ov-file#gradle
+kotlinx-datetime = "0.6.0"
+krontab = "2.3.0"
 
 [libraries]
 ktor-bom = { group = "io.ktor", name = "ktor-bom", version.ref = "ktor" }
 ktor-server-cio = { group = "io.ktor", name = "ktor-server-cio" }
 ktor-server-logging = { group = "io.ktor", name = "ktor-server-call-logging" }
+ktor-server-auth = { group = "io.ktor", name = "ktor-server-auth" }
 ktor-contentnegotiation-server = { group = "io.ktor", name = "ktor-server-content-negotiation" }
 ktor-contentnegotiation-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json" }
 
+ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio" }
 ktor-client-contentnegotiation = { group = "io.ktor", name = "ktor-client-content-negotiation" }
 
 stdx-bom = { group = "dev.schlaubi", name = "stdx-bom", version.ref = "stdx" }
@@ -31,16 +35,16 @@ stdx-envconf = { group = "dev.schlaubi", name = "stdx-envconf" }
 stdx-logging = { group = "dev.schlaubi", name = "stdx-logging" }
 stdx-coroutines = { group = "dev.schlaubi", name = "stdx-coroutines" }
 
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime"}
+
+krontab = { group = "dev.inmo", name = "krontab", version.ref = "krontab" }
+
 klogger = { group = "io.github.oshai", name = "kotlin-logging-jvm", version.ref = "klogger" }
 
 slf4jSimple = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf4j"}
 
 ktor-server-testHost = { group = "io.ktor", name = "ktor-server-test-host" }
 kotlinTest = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
-
-koin-bom = { group = "io.insert-koin", name = "koin-bom", version.ref = "koin" }
-koin-ktor = { group = "io.insert-koin", name = "koin-ktor" }
-koin-logging = { group = "io.insert-koin", name = "koin-logger-slf4j" }
 
 [plugins]
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

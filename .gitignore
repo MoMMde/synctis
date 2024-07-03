@@ -25,3 +25,5 @@ build
 
 # Secrets shhhh
 .env
+client_secret*.json
+.google-auth

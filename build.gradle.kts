@@ -19,6 +19,10 @@ dependencies {
 
     implementation(libs.ktor.server.cio)
     implementation(libs.ktor.server.logging)
+    implementation(libs.ktor.server.auth)
+
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.contentnegotiation)
 
     implementation(platform(libs.stdx.bom))
     implementation(libs.stdx.core)
@@ -26,12 +30,12 @@ dependencies {
     implementation(libs.stdx.logging)
     implementation(libs.stdx.coroutines)
 
+    implementation(libs.kotlinx.datetime)
+
+    implementation(libs.krontab)
+
     implementation(libs.klogger)
     implementation(libs.slf4jSimple)
-
-    implementation(platform(libs.koin.bom))
-    implementation(libs.koin.ktor)
-    implementation(libs.koin.logging)
 
     testImplementation(libs.ktor.server.testHost)
     testImplementation(libs.ktor.client.contentnegotiation)
@@ -53,6 +57,14 @@ tasks {
 
     test {
         useJUnitPlatform()
+
+        environment("DEBUG", "true")
+
+        readEnvFile(File(".env")) { key, value ->
+            environment(key, value)
+        }
+
+        jvmArgs("-Dorg.slf4j.simpleLogger.defaultLogLevel=debug")
     }
 }
 
