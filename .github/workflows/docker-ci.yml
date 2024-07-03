@@ -1,0 +1,38 @@
+name: Docker Container Build
+
+on:
+  push:
+    branches:
+      - "staging"
+      - "main"
+      - "release-*"
+  workflow_dispatch:
+
+# Will skip in [skip ci]
+# https://github.blog/changelog/2021-02-08-github-actions-skip-pull-request-and-push-workflows-with-skip-ci/
+
+jobs:
+  build-docker-image:
+    # Will build the .jar by running the Dockerfile
+    runs-on: ubuntu-latest
+    name: Server Dockerization
+    steps:
+
+      - name: Fetch Sources
+        uses: actions/checkout@v3
+
+      - name: Login to GitHub Container Registry
+        env:
+          DOCKER_USERNAME: mommde
+          DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+        run: echo $DOCKER_PASSWORD | docker login ghcr.io --username $DOCKER_USERNAME --password-stdin
+
+      - name: Build & Tag
+        run: docker build -f Dockerfile -t ghcr.io/mommde/synctis:latest -t ghcr.io/mommde/synctis:"$GITHUB_SHA" .
+        
+      - name: Push Image to GitHub Container Registry
+        run: docker push ghcr.io/mommde/synctis:latest
+
+      - name: Push Specific Image to GitHub Container Registry
+        run: docker push ghcr.io/mommde/synctis:"$GITHUB_SHA"
+    
