@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "xyz.mommde"
-version = "1.0"
+version = "1.1"
 
 dependencies {
     implementation(platform(libs.ktor.bom))

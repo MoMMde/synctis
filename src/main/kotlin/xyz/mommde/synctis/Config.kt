@@ -9,6 +9,7 @@ import xyz.mommde.synctis.google.implementation.objects.GoogleCalendarEventType
 object Config {
     val PORT by getEnv(default = 8080) { it.toInt() }
     val HOST by getEnv(default = "localhost")
+    val HOST_KTOR by getEnv(default = "localhost")
     val DEBUG by getEnv(default = false) { it.toBoolean() }
 
     object WebUntis : EnvConf("UNTIS_") {
@@ -33,5 +34,5 @@ object Config {
     // https://crontab.guru/#0_5_1-31_*_*
     // Run at 5 in the morning every day
     val RUN_SCHEDULE by getEnv(default = "0 5 1-31 * *")
-    val DAYS_IN_FUTURE by getEnv(default = 14) { it.toInt() }
+    val WEEKS_IN_FUTURE by getEnv(default = 2) { if (it.toInt() < 1) 1 else it.toInt() }
 }

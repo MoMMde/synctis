@@ -34,7 +34,7 @@ suspend fun main() {
 
         logger.info {
             "Synchronization finished. Starting Scheduler with config=\"${Config.RUN_SCHEDULE}\"" +
-                    " with days in future=${Config.DAYS_IN_FUTURE}"
+                    " with weeks in future=${Config.WEEKS_IN_FUTURE}"
         }
         synchronizer(googleClient, webUntisApi)
     }
