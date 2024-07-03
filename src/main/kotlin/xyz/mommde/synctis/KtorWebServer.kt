@@ -28,7 +28,7 @@ private val engine = CIO
 internal fun environment() = applicationEngineEnvironment {
     connector {
         port = Config.PORT
-        host = Config.HOST
+        host = Config.HOST_KTOR
     }
     developmentMode = Config.DEBUG
 
