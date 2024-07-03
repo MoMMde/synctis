@@ -16,6 +16,9 @@ jobs:
     # Will build the .jar by running the Dockerfile
     runs-on: ubuntu-latest
     name: Server Dockerization
+    permissions:
+      contents: read
+      packages: write
     steps:
 
       - name: Fetch Sources
